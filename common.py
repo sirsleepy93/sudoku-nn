@@ -47,8 +47,9 @@ def square_units(size=3):
 	for i in range(0, np.square(size), size):
 		grid = [[(c1, c2 + i) for (c1, c2) in c] for c in col]
 		for g in grid:
-			#sqr_units.append(g)
 			yield(g)
+			#sqr_units.append(g)
+
 
 	#assert len(sqr_units) == np.square(size)
 	#return sqr_units
@@ -72,4 +73,7 @@ def peers(size=3):
 	peers = dict((idx, set(sum(units[idx],[])) - set([idx])) for idx in grid)
 	assert len(peers[(0,0)]) == 2 * (np.square(size) - 1) + \
 	 							np.square(size) - (2 * size - 1)
+
 	return peers
+
+print(peers(3)[(0,0)])
