@@ -6,11 +6,14 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 """
 
+# Return a list of all indices
+def get_grid(size=3):
+	enum = range(np.square(size))
+	return [g for g in it.product(enum, enum)]
+
 # Return a list of all rows
 def row_units(size=3):
-	enum = range(np.square(size))
-	grid = [g for g in it.product(enum, enum)]
-
+	grid = get_grid(size)
 	#row_units = []
 	for i in range(np.square(size)):
 		#row_units.append([idx for idx in grid if idx[1] == i])
@@ -21,9 +24,7 @@ def row_units(size=3):
 
 # Return a list of all columns
 def column_units(size=3):
-	enum = range(np.square(size))
-	grid = [g for g in it.product(enum, enum)]
-
+	grid = get_grid(size)
 	#col_units = []
 	for i in range(np.square(size)):
 		#col_units.append([idx for idx in grid if idx[1] == i])
@@ -62,8 +63,7 @@ def unit_list(size=3):
 
 # Return a list of tuples representing all peers of an index
 def peers(size=3):
-	enum = range(np.square(size))
-	grid = [g for g in it.product(enum, enum)]
+	grid = get_grid(size)
 
 	units = dict((idx, [unit for unit in unit_list(size) if idx in unit])
 				  for idx in grid)
@@ -73,5 +73,3 @@ def peers(size=3):
 	assert len(peers[(0,0)]) == 2 * (np.square(size) - 1) + \
 	 							np.square(size) - (2 * size - 1)
 	return peers
-
-print(peers())
